@@ -10,9 +10,9 @@ export default function Term({ term } : { term: ITerm }) {
 	}
 
 	return (
-		<div className="word">
-			<p>{term.term} — {term.definition}</p>
-			<button onClick={handleDeleteClick}><FiX /></button>
+		<div className="term card">
+			<p>{term.term} —&nbsp;{term.definition}</p>
+			<button className="delete icon-btn" onClick={handleDeleteClick}><FiX /></button>
 		</div>
 	)
 }

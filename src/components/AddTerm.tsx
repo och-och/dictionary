@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react"
+import { ChangeEventHandler, FormEventHandler, useEffect, useRef, useState } from "react"
 import { FiPlus } from "react-icons/fi"
 import { useAppDispatch } from "../app/hooks"
 import { addedTerm } from "../features/terms/terms-slice"
@@ -6,7 +6,7 @@ import { addedTerm } from "../features/terms/terms-slice"
 function useField() {
 	const [value, setValue] = useState("")
 
-	const updateValue: ChangeEventHandler<HTMLInputElement> = (e) => {
+	const updateValue: ChangeEventHandler<HTMLInputElement|HTMLTextAreaElement> = (e) => {
 		setValue(e.target.value)
 	}
 
@@ -18,12 +18,10 @@ function useField() {
 }
 
 export default function AddTerm() {
+	const dispatch = useAppDispatch()
 	const [term, handleTermChange, clearTerm] = useField()
 	const [definition, handleDefinitionChange, clearDefinition] = useField()
-
 	const termInput = useRef<HTMLInputElement>(null)
-
-	const dispatch = useAppDispatch()
 
 	const handleSubmit: FormEventHandler<any> = (e) => {
 		e.preventDefault()
@@ -33,11 +31,20 @@ export default function AddTerm() {
 		termInput.current?.focus()
 	}
 
+	const definitionInput = useRef<HTMLTextAreaElement>(null)
+	useEffect(() => {
+		const def = definitionInput.current
+		if (def) {
+			def.style.height = "var(--lh)";
+			def.style.height = def.scrollHeight + "px";
+		}
+	})
+
 	return (
-		<form onSubmit={handleSubmit}>
-			<input ref={termInput} type="text" onChange={handleTermChange} value={term}/>
-			<input type="text" onChange={handleDefinitionChange} value={definition}/>
-			<button><FiPlus /></button>
+		<form className="add-term card" onSubmit={handleSubmit}>
+			<input ref={termInput} className={"input term"} onChange={handleTermChange} value={term} placeholder="das Apfel" type="text" />
+			<textarea ref={definitionInput} className="input definition" onChange={handleDefinitionChange} placeholder="/ˈapfəl/ an edible fruit produced by an apple tree" value={definition} />
+			<button className="add icon-btn"><FiPlus /></button>
 		</form>
 	)
 }

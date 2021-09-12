@@ -2,4 +2,102 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	overflow-wrap: anywhere;
+	hyphens: auto;
 }
+
+body {
+	background: #DDD;
+	--lh: 1rem;
+}
+
+.App {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 1rem;
+	gap: 1rem;
+}
+
+.card {
+	padding: 1rem;
+	background: #FFF;
+	border-radius: 1rem;
+	box-shadow: 0 0 .3rem #0003;
+}
+
+.icon-btn {
+	--icon-btn-size: 1.5rem;
+	width: var(--icon-btn-size);
+	height: var(--icon-btn-size);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	border-radius: 100px;
+	cursor: pointer;
+		} .icon-btn:hover {
+			background: #0002;
+		} .icon-btn:focus {
+			outline: 2px solid dodgerblue;
+	}
+	.icon-btn svg {
+		display: block;
+		/* width: calc(var(--icon-btn-size) * 0.8);
+		height: calc(var(--icon-btn-size) * 0.8); */
+	}
+
+.input {
+	padding: .3rem;
+	background: none;
+	border: none;
+	border-radius: 2px;
+	} .input:focus {
+		outline: 2px solid dodgerblue;
+	}
+
+.terms {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 90ch;
+	gap: .3rem;
+	}
+	.terms > .term {
+		flex-grow: 1;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: .3rem;
+	}
+
+.add-term {
+	position: sticky;
+	bottom: 1rem;
+	width: calc(100% - 2rem);
+	max-width: 40ch;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		"term add"
+		"definition definition"
+	;
+	gap: .3rem;
+	}
+	.add-term .input {
+		display: block;
+		width: 100%;
+		resize: none;
+		}
+		.add-term .input.term {
+			grid-area: term;
+			text-align: center;
+		}
+		.add-term .input.definition {
+			grid-area: definition;
+		}
+	.add-term .add {
+		grid-area: add;
+		}
