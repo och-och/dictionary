@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useAppSelector } from "./app/hooks"
+import AddTerm from "./components/AddTerm"
+import Terms from "./components/Terms"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const terms = useAppSelector(state => state.terms.value)
+
+	return (
+		<div className="App">
+			<Terms terms={terms} />
+			<AddTerm />
+		</div>
+	);
 }
 
 export default App;
