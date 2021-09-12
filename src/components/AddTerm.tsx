@@ -22,16 +22,20 @@ export default function AddTerm() {
 	const [term, handleTermChange, clearTerm] = useField()
 	const [definition, handleDefinitionChange, clearDefinition] = useField()
 	const termInput = useRef<HTMLInputElement>(null)
+	const definitionInput = useRef<HTMLTextAreaElement>(null)
 
 	const handleSubmit: FormEventHandler<any> = (e) => {
 		e.preventDefault()
+		if (!term)
+			return termInput.current?.focus()
+		else if (!definition)
+			return definitionInput.current?.focus()
 		dispatch(addedTerm({ term, definition }))
 		clearTerm()
 		clearDefinition()
 		termInput.current?.focus()
 	}
 
-	const definitionInput = useRef<HTMLTextAreaElement>(null)
 	useEffect(() => {
 		const def = definitionInput.current
 		if (def) {
